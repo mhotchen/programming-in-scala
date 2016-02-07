@@ -1,0 +1,1 @@
+A set of scripts and stuff written in scala as I go through the book Programming in Scala.
