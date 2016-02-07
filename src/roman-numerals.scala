@@ -17,7 +17,7 @@ val romanNumerals = Map(
 
 // side-effects and mutation everywhere. I think Martin would weep.
 var remaining = args(0).toInt
-var numeralAndCount = List((0, 0))
+var numeralAndCount = List[Tuple2[Int, Int]]()
 
 romanNumerals
   .keys
