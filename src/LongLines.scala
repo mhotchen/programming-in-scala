@@ -2,16 +2,13 @@ import scala.io.Source
 
 class LongLines {
   def processFile(fileName: String, width: Int): Unit = {
-    val lines = Source.fromFile(fileName)
+    def filterLine(line: String) = if (line.length >= width) true else false
+    def printLine(line: String) = println(fileName + ":" + line.length + ": " + line)
+
+    Source.fromFile(fileName)
       .getLines
-      .map(line => processLine(line, width))
-      .filter(line => if (line == "") false else true)
-
-    lines.foreach(line => println(fileName + ":" + line.length + ": " + line))
-  }
-
-  private def processLine(line: String, width: Int) = {
-    if (line.length >= width) line else ""
+      .filter(filterLine)
+      .foreach(printLine)
   }
 }
 
