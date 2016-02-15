@@ -1,6 +1,6 @@
 import language.implicitConversions
 
-class Rational(numerator: Int, denominator: Int) {
+class Rational(numerator: Int, denominator: Int) extends Ordered[Rational] {
   require(denominator != 0)
 
   private val gcd = greatestCommonDivisor(numerator.abs, denominator.abs)
@@ -23,8 +23,7 @@ class Rational(numerator: Int, denominator: Int) {
   def / (that: Rational) = new Rational(n * d, d * n)
   def / (i: Int) = new Rational(n, d * i)
 
-  def < (that: Rational) = n * that.d < that.n * d
-  def > (that: Rational) = if (this < that) false else true
+  override def compare(that: Rational): Int = (this.n * that.d) - (that.n * this.d)
 
   def unary_- = new Rational(-n, -d)
   def unary_+ = new Rational(+n, +d)
