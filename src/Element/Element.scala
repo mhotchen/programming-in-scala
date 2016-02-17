@@ -33,7 +33,7 @@ abstract class Element {
       val left = Element.elem(' ', height, (w - width) / 2)
       val right = Element.elem(' ', height, w - width - left.width)
       left beside this beside right
-    }
+    } ensuring (w == _.width)
 
   def heighten(h: Int): Element =
     if (h <= height) this
@@ -41,7 +41,7 @@ abstract class Element {
       val top = Element.elem(' ', (h - height) / 2, width)
       val bottom = Element.elem(' ', h - height - top.height, width)
       top above this above bottom
-    }
+    } ensuring (h == _.height)
 }
 
 object Spiral {
