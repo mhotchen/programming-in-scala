@@ -1,3 +1,5 @@
+package element
+
 object Element {
   class ArrayElement(val contents: Array[String]) extends Element
 
@@ -59,6 +61,9 @@ object Spiral {
       else (verticalBar above corner) beside (space above sp)
     }
   }
+
+  def main(args: Array[String]): Unit = {
+    println(Spiral.spiral(args(0).toInt, 0))
+  }
 }
 
-println(Spiral.spiral(args(0).toInt, 0))
