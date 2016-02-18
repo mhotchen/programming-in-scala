@@ -25,7 +25,7 @@ package object lists {
 
   def init[T](list: List[T]): List[T] = list match {
     case List() => throw new Exception("Not available on empty lists")
-    case List(first, last) => List(first)
+    case List(first, _) => List(first)
     case first :: rest => first :: init(rest)
   }
 
@@ -54,4 +54,19 @@ package object lists {
   def splitAt[T](list: List[T], index: Int): (List[T], List[T]) = (take(list, index), drop(list, index))
 
   def apply[T](list: List[T], index: Int): T = head(drop(list, index))
+
+  def mergeSort[T](comp: (T, T) => Boolean)(list: List[T]): List[T] = {
+    def merge(l: List[T], r: List[T]): List[T] = (l, r) match {
+      case (Nil, _) => r
+      case (_, Nil) => l
+      case (x :: restL, y :: restR) => if (comp(x, y)) x :: merge(restL, r) else y :: merge(l, restR)
+    }
+
+    val midPoint = length(list) / 2
+    if (midPoint == 0) list
+    else {
+      val (l, r) = splitAt(list, midPoint)
+      merge(mergeSort(comp)(l), mergeSort(comp)(r))
+    }
+  }
 }

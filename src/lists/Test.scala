@@ -19,4 +19,11 @@ object Test extends App{
   println(drop(test1, 3))
   println(apply(test1, 3))
   println(splitAt(test1, length(test1) / 2))
+  val normalOrder = mergeSort[Int](_ < _)_
+  val reverseOrder = mergeSort[Int](_ > _)_
+  val stringSort = mergeSort[String](_ < _)_
+  println(stringSort(concat(test2concat, test2)))
+  println(normalOrder(concat(reverse(test1), test1concat)))
+  println(reverseOrder(test1))
+  println(normalOrder(reverseOrder(test1)))
 }
