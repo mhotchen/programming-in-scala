@@ -1,4 +1,4 @@
-package element
+package Element
 
 object Element {
   class ArrayElement(val contents: Array[String]) extends Element
