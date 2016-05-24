@@ -43,12 +43,14 @@ package object lists {
   def take[T](list: List[T], count: Int): List[T] = count match {
     case 0 => List()
     case 1 => List(head(list))
-    case n => if (n > 0) head(list) :: take(tail(list), n - 1) else throw new Exception("count must be greater than 0")
+    case n if n <= 0 => throw new Exception("count must be greater than 0")
+    case n => head(list) :: take(tail(list), n - 1)
   }
 
   def drop[T](list: List[T], count: Int): List[T] = count match {
     case 0 => list
-    case n => if (n > 0) drop(tail(list), n - 1) else throw new Exception("count must be greater than 0")
+    case n if n <= 0 => throw new Exception("count must be greater than 0")
+    case n => drop(tail(list), n - 1)
   }
 
   def splitAt[T](list: List[T], index: Int): (List[T], List[T]) = (take(list, index), drop(list, index))
