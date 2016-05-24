@@ -61,10 +61,10 @@ package object lists {
     case _ =>
       def insert(item: T, list: List[T]): List[T] = list match {
         case List() => item :: list
-        case _ if comp(item, list.head) => item :: list
-        case _ => list.head :: insert(item, list.tail)
+        case _ if comp(item, head(list)) => item :: list
+        case _ => head(list) :: insert(item, tail(list))
       }
-      insert(list.head, insertSort(comp)(list.tail))
+      insert(head(list), insertSort(comp)(tail(list)))
   }
 
   def mergeSort[T](comp: (T, T) => Boolean)(list: List[T]): List[T] = {
