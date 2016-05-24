@@ -1,6 +1,6 @@
 package lists
 
-object Test extends App{
+object Test extends App {
   val test1 = List(0, 1, 2, 3, 4, 5, 6, 7)
   val test1concat = List(8, 9, 10)
   val test2 = List("Foo", "Bar")
@@ -19,6 +19,8 @@ object Test extends App{
   println(drop(test1, 3))
   println(apply(test1, 3))
   println(splitAt(test1, length(test1) / 2))
+  println(flatten(List(test1, test1concat)))
+  println(flatten(List(test2, test2concat)))
 
   val normalOrderMerge = mergeSort[Int](_ < _)_
   val normalOrderInsert = insertSort[Int](_ < _)_

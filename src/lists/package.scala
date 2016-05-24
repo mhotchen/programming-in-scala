@@ -57,6 +57,12 @@ package object lists {
 
   def apply[T](list: List[T], index: Int): T = head(drop(list, index))
 
+  def flatten[T](list: List[List[T]]): List[T] = list match {
+    case List() => List[T]()
+    case List(item) => item
+    case head :: rest => concat(head, flatten(rest))
+  }
+
   def insertSort[T](comp: (T, T) => Boolean)(list: List[T]): List[T] = list match {
     case List() => list
     case List(_) => list
