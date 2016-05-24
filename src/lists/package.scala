@@ -55,13 +55,16 @@ package object lists {
 
   def apply[T](list: List[T], index: Int): T = head(drop(list, index))
 
-  def insertSort[T](comp: (T, T) => Boolean)(list: List[T]): List[T] = {
-    def insert(item: T, list: List[T]): List[T] =
-      if (list.isEmpty || comp(item, list.head)) item :: list
-      else list.head :: insert(item, list.tail)
-
-    if (list.isEmpty) Nil
-    else insert(list.head, insertSort(comp)(list.tail))
+  def insertSort[T](comp: (T, T) => Boolean)(list: List[T]): List[T] = list match {
+    case List() => list
+    case List(_) => list
+    case _ =>
+      def insert(item: T, list: List[T]): List[T] = list match {
+        case List() => item :: list
+        case _ if comp(item, list.head) => item :: list
+        case _ => list.head :: insert(item, list.tail)
+      }
+      insert(list.head, insertSort(comp)(list.tail))
   }
 
   def mergeSort[T](comp: (T, T) => Boolean)(list: List[T]): List[T] = {
