@@ -3,9 +3,9 @@ import language.implicitConversions
 class Rational(numerator: Int, denominator: Int) extends Ordered[Rational] {
   require(denominator != 0)
 
-  private val gcd = greatestCommonDivisor(numerator.abs, denominator.abs)
-  val n = numerator / gcd
-  val d = denominator / gcd
+  private lazy val gcd = greatestCommonDivisor(numerator.abs, denominator.abs)
+  lazy val n = numerator / gcd
+  lazy val d = denominator / gcd
 
   def this(numerator: Int) = this(numerator, 1)
 
@@ -30,7 +30,10 @@ class Rational(numerator: Int, denominator: Int) extends Ordered[Rational] {
 
   def max(that: Rational) = if (this < that) that else this
 
-  private def greatestCommonDivisor(a: Int, b: Int): Int = if (b == 0) a else greatestCommonDivisor(b, a % b)
+  private def greatestCommonDivisor(a: Int, b: Int): Int = b match {
+    case 0 => a
+    case _ => greatestCommonDivisor(b, a % b)
+  }
 }
 
 implicit def intToRational(x: Int): Rational = new Rational(x)
