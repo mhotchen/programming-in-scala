@@ -1,10 +1,19 @@
 package lists
 
+class OrderedTest(val value: String) extends Ordered[OrderedTest] {
+  override def compare(that: OrderedTest): Int = {
+    value.compareToIgnoreCase(that.value)
+  }
+
+  override def toString = value
+}
+
 object Test extends App {
   val test1 = List(0, 1, 2, 3, 4, 5, 6, 7)
   val test1concat = List(8, 9, 10)
   val test2 = List("Foo", "Bar")
   val test2concat = List("Baz")
+  val test3 = List(new OrderedTest("a"), new OrderedTest("C"), new OrderedTest("B"))
   println(length(test1))
   println(concat(test1, test1concat))
   println(length(test2))
@@ -37,5 +46,5 @@ object Test extends App {
   println(reverseOrderInsert(test1))
   println(normalOrderMerge(reverseOrderMerge(test1)))
   println(normalOrderInsert(reverseOrderInsert(test1)))
-
+  println(orderedMergeSort(test3))
 }

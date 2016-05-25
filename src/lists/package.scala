@@ -80,7 +80,8 @@ package object lists {
     def merge(l: List[T], r: List[T]): List[T] = (l, r) match {
       case (Nil, _) => r
       case (_, Nil) => l
-      case (x :: restL, y :: restR) => if (comp(x, y)) x :: merge(restL, r) else y :: merge(l, restR)
+      case (x :: restL, y :: restR) if comp(x, y) => x :: merge(restL, r)
+      case (x :: restL, y :: restR)               => y :: merge(l, restR)
     }
 
     val midPoint = length(list) / 2
@@ -88,6 +89,22 @@ package object lists {
     else {
       val (l, r) = splitAt(list, midPoint)
       merge(mergeSort(comp)(l), mergeSort(comp)(r))
+    }
+  }
+
+  def orderedMergeSort[T <: Ordered[T]](list: List[T]): List[T] = {
+    def merge(l: List[T], r: List[T]): List[T] = (l, r) match {
+      case (Nil, _) => r
+      case (_, Nil) => l
+      case (x :: restL, y :: restR) if x < y => x :: merge(restL, r)
+      case (x :: restL, y :: restR)          => y :: merge(l, restR)
+    }
+
+    val midPoint = length(list) / 2
+    if (midPoint == 0) list
+    else {
+      val (l, r) = splitAt(list, midPoint)
+      merge(orderedMergeSort(l), orderedMergeSort(r))
     }
   }
 }
