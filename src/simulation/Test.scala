@@ -1,17 +1,20 @@
 package simulation
 
-import TestSimulation._
-
 object Test extends App {
-  val input1, input2, sum, carry = new Wire
+  val circuit = new Circuit with Adders
 
-  probe("sum", sum)
-  probe("carry", carry)
-  halfAdder(input1, input2, sum, carry)
+  val ain = new circuit.Wire("ain", true)
+  val bin = new circuit.Wire("bin", false)
+  val cin = new circuit.Wire("cin", true)
+  val sout = new circuit.Wire("sout")
+  val cout = new circuit.Wire("cout")
 
-  input1.setSignal(true)
-  run()
+  circuit.probe(ain)
+  circuit.probe(bin)
+  circuit.probe(cin)
+  circuit.probe(sout)
+  circuit.probe(cout)
 
-  input2.setSignal(true)
-  run()
+  circuit.fullAdder(ain, bin, cin, sout, cout)
+  circuit.start()
 }
